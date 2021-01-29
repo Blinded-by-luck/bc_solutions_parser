@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>BCS CHAIN PARSER</title>
+</head>
+
+
+
+<style>
+body{
+    margin: 0%;
+    background: rgb(17, 17, 19);
+	}
+
+    .content-table {
+		  border-collapse: collapse;
+		  font-size: 0.9em;
+		  min-width: 400px;
+		  border-radius: 5px 5px 0 0;
+		  overflow: hidden;
+		  box-shadow: 0 0 20px rgb(41, 38, 46);
+		  background-size: cover; 
+		  background: transparent;
+		}
+
+		.content-table thead tr {
+		  background-color: #29262e;
+		  color: #bb9f89;
+		  text-align: left;
+		  font-weight: bold;
+		}
+
+		.content-table thead th{
+			border-color: #bb9f89
+		}
+
+		.content-table th,
+		.content-table td {
+		  padding: 12px 15px;
+		  text-align: center;
+		  background-color: #29262e;
+
+		}
+
+		.content-table tbody tr {
+		  border-bottom: 1px solid #dddddd;
+		  font-family: : Assistant SemiBold;
+		  color: #bb9f89;
+		  border-color: #bb9f89
+		}
+
+		.content-table tbody tr:nth-of-type(even) {
+		  background-color: #29262e;
+		  font-family: : Assistant;
+		  color: #bb9f89;
+
+		}
+
+		.content-table tbody tr:last-of-type {
+		  border-bottom: 2px solid #bb9f89;
+		  color: #bb9f89
+		}
+}
+</style>
+
+
+
+
+
+<body>
+	<div style="position:absolute; margin-left: 35%; margin-right: 60%;">
+	<p><a name="top"></a></p>
+		<h1 style="background: transparent; font-family: Assistant-Bold; color: #bb9f89; text-align: center">
+			BCS CHAIN PARSER
+		</h1>
+
+	<table class="content-table">
+	  <thead>
+	    <tr>
+	      <th>Высота блока</th>
+	      <th>Майнер</th>
+	      <th>Время блока</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    {% for block in blocks %}
+            <tr>
+                <td style="color: #bb9f89"><a href="#">{{ block.height }}</td>
+                <td>{{ block.miner }}</td>
+                <td>{{ block.timestamp }}</td>
+            </tr>
+        {% endfor %}
+	  </tbody>
+	</table>
+
+
+	<p style="text-align: center">
+		{% if blocks.has_previous %}
+			<a style="font-family: verdana; color: #bb9f89"
+			href="{% url 'blocks' %}?page={{blocks.previous_page_number}}"> Назад </a>
+		{% endif %}
+
+		<a style="font-family: verdana; color: #bb9f89" href="#top">Наверх</a>
+
+		{% if blocks.has_next %}
+			<a style="font-family: verdana; color: #bb9f89" 
+			href="{% url 'blocks' %}?page={{blocks.next_page_number}}"> Вперед </a> 
+		{% endif %}
+	</p>
+</div>
+
+
+
+
+
+
+	<script href="C:\Users\vaire\Desktop\bcs\bcs\templates\script.js"> 
+		(function(){
+				    var canvas = document.createElement('canvas'),
+				    ctx = canvas.getContext('2d'),
+				    w = canvas.width =  1615,
+				    h = canvas.height =  2200,
+				    particles = [],
+				    properties = {
+				        bgColor             : 'rgba(37,36,43, 1)',
+				        particleColor       : 'rgba(176,150,132, 1)',
+				        particleRadius      : 3,
+				        particleCount       : 500,
+				        particleMaxVelocity : 0.1,
+				        lineLength          : 110,
+				        particleLife        : 999,
+				    };
+
+				    document.querySelector('body').appendChild(canvas);
+
+				    window.onresize = function(){
+				        w = canvas.width = 970,
+				        h = canvas.height = 2200;        
+				    }
+
+				    class Particle{
+				        constructor(){
+				            this.x = Math.random()*w;
+				            this.y = Math.random()*h;
+				            this.velocityX = Math.random()*(properties.particleMaxVelocity*2)-properties.particleMaxVelocity;
+				            this.velocityY = Math.random()*(properties.particleMaxVelocity*2)-properties.particleMaxVelocity;
+				            this.life = Math.random()*properties.particleLife*60;
+				        }
+				        position(){
+				            this.x + this.velocityX > w && this.velocityX > 0 || this.x + this.velocityX < 0 && this.velocityX < 0? this.velocityX*=-1 : this.velocityX;
+				            this.y + this.velocityY > h && this.velocityY > 0 || this.y + this.velocityY < 0 && this.velocityY < 0? this.velocityY*=-1 : this.velocityY;
+				            this.x += this.velocityX;
+				            this.y += this.velocityY;
+				        }
+				        reDraw(){
+				            ctx.beginPath();
+				            ctx.arc(this.x, this.y, properties.particleRadius, 0, Math.PI*2);
+				            ctx.closePath();
+				            ctx.fillStyle = properties.particleColor;
+				            ctx.fill();
+				        }
+				        reCalculateLife(){
+				            if(this.life < 1){
+				                this.x = Math.random()*w;
+				                this.y = Math.random()*h;
+				                this.velocityX = Math.random()*(properties.particleMaxVelocity*2)-properties.particleMaxVelocity;
+				                this.velocityY = Math.random()*(properties.particleMaxVelocity*2)-properties.particleMaxVelocity;
+				                this.life = Math.random()*properties.particleLife*60;
+				            }
+				            this.life--;
+				        }
+				    }
+
+				    function reDrawBackground(){
+				        ctx.fillStyle = properties.bgColor;
+				        ctx.fillRect(0, 0, w, h);
+				    }
+
+				    function drawLines(){
+				        var x1, y1, x2, y2, length, opacity;
+				        for(var i in particles){
+				            for(var j in particles){
+				                x1 = particles[i].x;
+				                y1 = particles[i].y;
+				                x2 = particles[j].x;
+				                y2 = particles[j].y;
+				                length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+				                if(length < properties.lineLength){
+				                    opacity = 1-length/properties.lineLength;
+				                    ctx.lineWidth = '0.5';
+				                    ctx.strokeStyle = 'rgba(176, 150, 132, '+opacity+')';
+				                    ctx.beginPath();
+				                    ctx.moveTo(x1, y1);
+				                    ctx.lineTo(x2, y2);
+				                    ctx.closePath();
+				                    ctx.stroke();
+				                }
+				            }
+				        }
+				    }
+
+				    function reDrawParticles(){
+				        for(var i in particles){
+				            particles[i].reCalculateLife();
+				            particles[i].position();
+				            particles[i].reDraw();
+				        }
+				    }
+
+				    function loop(){
+				        reDrawBackground();
+				        reDrawParticles();
+				        drawLines();
+				        requestAnimationFrame(loop);
+				    }
+
+				    function init(){
+				        for(var i = 0 ; i < properties.particleCount ; i++){
+				            particles.push(new Particle);
+				        }
+				        loop();
+				    }
+
+				    init();
+				    document.addEventListener("DOMContentLoaded", ReplaceBackground);
+				}())
+
+
+	</script>
+
+
+    </body>
+</html>
