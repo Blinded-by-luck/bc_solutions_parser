@@ -9,6 +9,9 @@ class Blocks(models.Model):
 	miner = models.CharField(max_length=100) # адрес майнера
 	transactionCount = models.BigIntegerField() # кол-во транзакций в блоке
 	
+	def get_absolute_url(self):
+		return f"/blocks/block_{self.height}/"
+
 	class Meta:
 		verbose_name = 'Блок'
 		verbose_name_plural = 'Блоки'

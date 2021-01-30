@@ -15,3 +15,8 @@ def BlocksView(request):
     except EmptyPage:
     	blocks = p.page(1)
     return render(request, "blocks.html", locals())
+
+
+def BlockView(request, height):
+	block = Blocks.objects.get(height=height)
+	return render(request, "block.html", locals())
