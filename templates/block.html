@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>BCS CHAIN PARSER</title>
+	<title>BCS CHAIN PARSER Block</title>
 </head>
-
-
 
 <style>
 body{
@@ -72,47 +69,50 @@ body{
 
 
 <body>
-	<div style="position:absolute; margin-left: 35%; margin-right: 60%;">
-	<p><a name="top"></a></p>
-		<h1 style="background: transparent; font-family: Assistant-Bold; color: #bb9f89; text-align: center">
-			BCS CHAIN PARSER
-		</h1>
+<div style="position:absolute; margin-left: 35%; margin-right: 60%;">
+	<h1 style="background: transparent; font-family: Assistant-Bold; color: #bb9f89; text-align: center">
+			Информация по блоку
+	</h1>
+<table class="content-table">
+	<thead>
+	<tr>
+		<th>Колонка</th>
+		<th>Значение</th>
+	</tr>
+	</thead>
 
-	<table class="content-table">
-	  <thead>
-	    <tr>
-	      <th>Высота блока</th>
-	      <th>Майнер</th>
-	      <th>Время блока</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    {% for block in blocks %}
-            <tr>
-                <td style="color: #bb9f89">
-                	<a href="{{ block.get_absolute_url }}">{{ block.height }}</a>
-                </td>
-                <td>{{ block.miner }}</td>
-                <td>{{ block.timestamp }}</td>
-            </tr>
-        {% endfor %}
-	  </tbody>
-	</table>
+	<tbody>
+        <tr>
+            <td>Высота блока</td>
+            <td>{{block.height}}</td>
+        </tr>
 
+        <tr>
+            <td>Хэш</td>
+            <td>{{block.hash}}</td>
+        </tr>
 
-	<p style="text-align: center">
-		{% if blocks.has_previous %}
-			<a style="font-family: verdana; color: #bb9f89"
-			href="{% url 'blocks' %}?page={{blocks.previous_page_number}}"> Назад </a>
-		{% endif %}
+        <tr>
+            <td>Время</td>
+            <td>{{block.timestamp}}</td>
+        </tr>
 
-		<a style="font-family: verdana; color: #bb9f89" href="#top">Наверх</a>
+        <tr>
+            <td>Добыто</td>
+            <td>{{block.miner}}</td>
+        </tr>
 
-		{% if blocks.has_next %}
-			<a style="font-family: verdana; color: #bb9f89" 
-			href="{% url 'blocks' %}?page={{blocks.next_page_number}}"> Вперед </a> 
-		{% endif %}
-	</p>
+        <tr>
+	        <td>Кол-во транзакций</td>
+			<td>{{block.transactionCount}}</td>
+	 	</tr>
+
+	 </tbody>
+</table>>
+<p style="text-align: center">
+<a style="font-family: verdana; color: #bb9f89"
+			href="/blocks"> Назад </a>
+</p>
 </div>
 
 
@@ -124,14 +124,14 @@ body{
 		(function(){
 				    var canvas = document.createElement('canvas'),
 				    ctx = canvas.getContext('2d'),
-				    w = canvas.width =  1615,
-				    h = canvas.height =  2200,
+				    w = canvas.width =  1635,
+				    h = canvas.height =  800,
 				    particles = [],
 				    properties = {
 				        bgColor             : 'rgba(37,36,43, 1)',
 				        particleColor       : 'rgba(176,150,132, 1)',
 				        particleRadius      : 3,
-				        particleCount       : 500,
+				        particleCount       : 200,
 				        particleMaxVelocity : 0.1,
 				        lineLength          : 110,
 				        particleLife        : 999,
@@ -140,8 +140,8 @@ body{
 				    document.querySelector('body').appendChild(canvas);
 
 				    window.onresize = function(){
-				        w = canvas.width = 970,
-				        h = canvas.height = 2200;        
+				        w = canvas.width = window.widthInner,
+				        h = canvas.height = window.heightInner;        
 				    }
 
 				    class Particle{
@@ -233,7 +233,4 @@ body{
 
 
 	</script>
-
-
-    </body>
-</html>
+</body>
