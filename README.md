@@ -1,7 +1,7 @@
 # bc_solutions_parser
 
 DataBase: db.sqlite3  
-Backend: Django 3.3  
+Backend: Django 3.1  
 Frontend: Html+CSS+JS  
 API: https://github.com/cryptofugu/bcsinfo-api  
 
