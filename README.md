@@ -22,7 +22,7 @@ API: https://github.com/cryptofugu/bcsinfo-api
 
 Пагинация на второй странице blocks/
 <p>
-  <img src="https://sun9-69.userapi.com/impg/O94gq2rqEymyLmC2vxJsvPwiEhAExG0TWrlSjw/vNsIuTdOXig.jpg?size=1179x580&quality=96&proxy=1&sign=b89cb2d1ca7f3c4ff3618adabb373959&type=album>
+  <img src="https://sun9-69.userapi.com/impg/O94gq2rqEymyLmC2vxJsvPwiEhAExG0TWrlSjw/vNsIuTdOXig.jpg?size=1179x580&quality=96&proxy=1&sign=b89cb2d1ca7f3c4ff3618adabb373959&type=album">
 </p>
 
 Администраторская панель 
